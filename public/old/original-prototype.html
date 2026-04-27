@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>יאללה — לאן הולכים? ועם מי?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5ecd9;
+    --paper-deep: #ecdfc4;
+    --ink: #1a1410;
+    --ink-soft: #4a3826;
+    --ink-faint: #8a7a5e;
+    --accent: #c8472b;
+    --accent-deep: #a8341f;
+    --gold: #d9a441;
+    --olive: #6b7d3a;
+    --sea: #2e7a8a;
+    --plum: #6b3a4a;
+    --line: #2a1f12;
+    --shadow: 0 2px 0 var(--line), -4px 6px 0 rgba(26, 20, 16, 0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Heebo', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(200, 71, 43, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(217, 164, 65, 0.05) 0%, transparent 40%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 0 20px;
+    border-bottom: 1.5px solid var(--line);
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .logo {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: 36px;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo svg { width: 34px; height: 34px; }
+  .logo-accent { color: var(--accent); font-style: italic; }
+
+  nav {
+    display: flex;
+    gap: 4px;
+    background: var(--paper-deep);
+    padding: 4px;
+    border: 1.5px solid var(--line);
+    border-radius: 100px;
+  }
+  nav button {
+    background: transparent;
+    border: none;
+    padding: 8px 18px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+  nav button.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  nav button:hover:not(.active) { color: var(--ink); }
+
+  .header-actions { display: flex; gap: 12px; align-items: center; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--paper);
+    border: 1.5px solid var(--line);
+    padding: 10px 20px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover {
+    transform: translate(1px, -1px);
+    box-shadow: 0 2px 0 var(--line), -5px 7px 0 rgba(26, 20, 16, 0.12);
+  }
+  .btn-primary:active {
+    transform: translate(-2px, 2px);
+    box-shadow: 0 2px 0 var(--line), -1px 2px 0 rgba(26, 20, 16, 0.12);
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    padding-bottom: 28px;
+    border-bottom: 1px dashed var(--ink-faint);
+    margin-bottom: 32px;
+  }
+  .hero h1 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .hero-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-align: left;
+    line-height: 1.8;
+    direction: ltr;
+  }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .filter-label {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    margin-left: 4px;
+  }
+  .chip {
+    background: var(--paper-deep);
+    border: 1.5px solid var(--line);
+    padding: 6px 14px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 100px;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .chip:hover { background: var(--paper); }
+  .chip.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .feed {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    box-shadow: var(--shadow);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translate(2px, -2px);
+    box-shadow: 0 2px 0 var(--line), -6px 8px 0 rgba(26, 20, 16, 0.15);
+  }
+  .card.tilted-1 { transform: rotate(-0.4deg); }
+  .card.tilted-2 { transform: rotate(0.5deg); }
+  .card.tilted-1:hover { transform: rotate(-0.4deg) translate(2px, -2px); }
+  .card.tilted-2:hover { transform: rotate(0.5deg) translate(2px, -2px); }
+
+  .card-stamp {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    border: 1px solid currentColor;
+    padding: 3px 8px;
+    border-radius: 2px;
+    transform: rotate(-3deg);
+    z-index: 2;
+    background: var(--paper);
+    letter-spacing: 0.04em;
+  }
+  .stamp-travel { color: var(--sea); }
+  .stamp-local { color: var(--olive); }
+  .stamp-activity { color: var(--gold); }
+
+  .card-image {
+    height: 160px;
+    background: var(--paper-deep);
+    border-bottom: 1.5px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .card-image svg {
+    width: 100%; height: 100%;
+  }
+
+  .card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+
+  .card-meta {
+    font-family: 'Heebo', sans-serif;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .card-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); }
+
+  .card h3 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 23px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .card h3 em { font-style: italic; color: var(--accent); }
+
+  .card-purpose {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    flex: 1;
+  }
+
+  .card-host {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--ink-faint);
+  }
+  .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 1.5px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+  .host-info { flex: 1; min-width: 0; }
+  .host-name {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .host-when {
+    font-family: 'Heebo', sans-serif;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .card-footer {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .btn-meet {
+    flex: 1;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1.5px solid var(--line);
+    padding: 10px 14px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-meet:hover { background: var(--accent); }
+  .btn-meet.joined { background: var(--olive); cursor: default; }
+
+  .btn-icon {
+    background: var(--paper-deep);
+    border: 1.5px solid var(--line);
+    width: 38px; height: 38px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .btn-icon:hover { background: var(--paper); }
+
+  .attendees {
+    display: flex;
+    margin-top: 12px;
+    align-items: center;
+    gap: 8px;
+  }
+  .attendee-stack { display: flex; flex-direction: row-reverse; }
+  .attendee-stack .avatar {
+    width: 24px; height: 24px;
+    font-size: 10px;
+    margin-right: -6px;
+  }
+  .attendee-stack .avatar:first-child { margin-right: 0; }
+  .attendee-count {
+    font-family: 'Heebo', sans-serif;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .reasons-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+  .reason-chip {
+    background: var(--paper-deep);
+    border: 1px solid var(--ink-faint);
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 20, 16, 0.4);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    box-shadow: 0 4px 0 var(--line), -12px 16px 0 rgba(26, 20, 16, 0.2);
+    max-width: 580px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-header {
+    padding: 24px 28px 16px;
+    border-bottom: 1.5px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .modal-header h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+  }
+  .modal-header h2 em { font-style: italic; color: var(--accent); }
+  .modal-close {
+    background: var(--paper-deep);
+    border: 1.5px solid var(--line);
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+
+  .modal-body { padding: 24px 28px; }
+
+  .form-row { margin-bottom: 18px; }
+  .form-row label {
+    display: block;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .form-row input,
+  .form-row textarea,
+  .form-row select {
+    width: 100%;
+    background: var(--paper-deep);
+    border: 1.5px solid var(--line);
+    padding: 10px 12px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: background 0.15s;
+    direction: rtl;
+  }
+  .form-row input:focus,
+  .form-row textarea:focus,
+  .form-row select:focus { background: var(--paper); }
+  .form-row textarea { min-height: 70px; resize: vertical; font-family: inherit; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .pill-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .pill-options input { display: none; }
+  .pill-options label {
+    margin: 0;
+    padding: 7px 14px;
+    background: var(--paper-deep);
+    border: 1.5px solid var(--line);
+    border-radius: 100px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pill-options input:checked + label {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .modal-footer {
+    padding: 18px 28px;
+    border-top: 1.5px solid var(--line);
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    background: var(--paper-deep);
+  }
+  .btn-secondary {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1.5px solid var(--line);
+    padding: 10px 20px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .meet-prompt {
+    background: var(--paper-deep);
+    border: 1.5px solid var(--line);
+    padding: 16px;
+    margin-bottom: 18px;
+  }
+  .meet-prompt p {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .meet-prompt p::before { content: '"'; color: var(--accent); font-size: 24px; margin-left: 2px; }
+  .meet-prompt p::after { content: '"'; color: var(--accent); font-size: 24px; margin-right: 2px; }
+
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--ink);
+    color: var(--paper);
+    border: 1.5px solid var(--line);
+    padding: 14px 28px;
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: -4px 6px 0 rgba(26, 20, 16, 0.3);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 200;
+    pointer-events: none;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .toast em { color: var(--gold); font-style: italic; font-weight: 700; }
+
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-faint);
+  }
+  .empty h3 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-style: italic;
+    font-size: 30px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .hero { grid-template-columns: 1fr; gap: 16px; }
+    .hero-meta { text-align: right; direction: rtl; }
+    .form-grid { grid-template-columns: 1fr; }
+    nav button { padding: 7px 12px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="14" stroke="var(--ink)" stroke-width="2"/>
+        <path d="M10 22 L16 8 L22 22 L16 18 Z" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+      <span>יאללה<span class="logo-accent">.</span></span>
+    </div>
+    <nav id="nav">
+      <button class="active" data-view="discover">גלה</button>
+      <button data-view="mine">התוכניות שלי</button>
+      <button data-view="joined">הצטרפתי</button>
+    </nav>
+    <div class="header-actions">
+      <button class="btn-primary" id="open-create">+ שתף תוכנית</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>הולך לאנשהו?<br><em>קח מישהו איתך.</em></h1>
+    <div class="hero-meta">
+      No. 047 — Spring '26<br>
+      A field journal of plans,<br>
+      shared by people like you.
+    </div>
+  </section>
+
+  <div class="filters" id="filters">
+    <span class="filter-label">סוג</span>
+    <button class="chip active" data-filter="all">הכל</button>
+    <button class="chip" data-filter="travel">✈ טיול</button>
+    <button class="chip" data-filter="local">📍 מקומי</button>
+    <button class="chip" data-filter="activity">✦ פעילות</button>
+    <span class="filter-label" style="margin-right:auto;">סיבה</span>
+    <button class="chip active" data-reason="all">הכל</button>
+    <button class="chip" data-reason="company">חברה</button>
+    <button class="chip" data-reason="local-tips">טיפים מקומיים</button>
+    <button class="chip" data-reason="split-cost">חלוקת הוצאות</button>
+    <button class="chip" data-reason="practice">תרגול</button>
+  </div>
+
+  <div class="feed" id="feed"></div>
+</div>
+
+<div class="modal-backdrop" id="create-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>שתף <em>לאן אתה הולך</em></h2>
+      <button class="modal-close" data-close>×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <label>לאן?</label>
+        <input type="text" id="f-place" placeholder="למשל: מצדה, פארק הירקון, קפה קפליקס...">
+      </div>
+      <div class="form-row">
+        <label>איזה סוג תוכנית?</label>
+        <div class="pill-options" id="f-type">
+          <input type="radio" name="type" id="type-travel" value="travel"><label for="type-travel">✈ טיול</label>
+          <input type="radio" name="type" id="type-local" value="local" checked><label for="type-local">📍 מקומי</label>
+          <input type="radio" name="type" id="type-activity" value="activity"><label for="type-activity">✦ פעילות</label>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label>מתי</label>
+          <input type="text" id="f-when" placeholder="שבת ב־9:00, יום חמישי בערב...">
+        </div>
+        <div class="form-row">
+          <label>כמה אנשים</label>
+          <input type="text" id="f-size" placeholder="2–4 אנשים" value="2–4 אנשים">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>מה התוכנית? מה עושים שם?</label>
+        <textarea id="f-purpose" placeholder="הולכים לסיבוב, אוכלים בורקס בדרך, חוזרים בלי לחץ."></textarea>
+      </div>
+      <div class="form-row">
+        <label>למה להיפגש? (סמן הכל שמתאים)</label>
+        <div class="pill-options" id="f-reasons">
+          <input type="checkbox" id="r-company" value="חברה"><label for="r-company">חברה</label>
+          <input type="checkbox" id="r-local-tips" value="טיפים מקומיים"><label for="r-local-tips">טיפים מקומיים</label>
+          <input type="checkbox" id="r-split-cost" value="חלוקת הוצאות"><label for="r-split-cost">חלוקת הוצאות</label>
+          <input type="checkbox" id="r-practice" value="תרגול"><label for="r-practice">תרגול / שפה</label>
+          <input type="checkbox" id="r-make-friends" value="להכיר אנשים"><label for="r-make-friends">להכיר אנשים</label>
+          <input type="checkbox" id="r-photos" value="תמונות"><label for="r-photos">תמונות</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="submit-create">פרסם</button>
+      <button class="btn-secondary" data-close>ביטול</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="meet-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="meet-title">להצטרף?</h2>
+      <button class="modal-close" data-close>×</button>
+    </div>
+    <div class="modal-body" id="meet-body"></div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="confirm-meet">שלח בקשה</button>
+      <button class="btn-secondary" data-close>אולי אחר כך</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ILLUS = {
+  travel: `<svg viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="320" height="160" fill="#e8d4a8"/>
+    <path d="M0 110 Q80 80 160 100 T320 95 L320 160 L0 160 Z" fill="#6b7d3a" opacity="0.7"/>
+    <path d="M0 130 Q100 110 200 125 T320 120 L320 160 L0 160 Z" fill="#4a3826" opacity="0.5"/>
+    <circle cx="60" cy="40" r="22" fill="#d9a441"/>
+    <path d="M40 70 L60 50 L80 70 L100 45 L120 65 L140 50 L160 70" stroke="#1a1410" stroke-width="2" fill="none" opacity="0.6"/>
+  </svg>`,
+  local: `<svg viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="320" height="160" fill="#ecdfc4"/>
+    <rect x="20" y="60" width="60" height="80" fill="#c8472b" stroke="#1a1410" stroke-width="1.5"/>
+    <rect x="90" y="40" width="50" height="100" fill="#d9a441" stroke="#1a1410" stroke-width="1.5"/>
+    <rect x="150" y="70" width="70" height="70" fill="#6b3a4a" stroke="#1a1410" stroke-width="1.5"/>
+    <rect x="230" y="50" width="60" height="90" fill="#2e7a8a" stroke="#1a1410" stroke-width="1.5"/>
+    <rect x="32" y="75" width="10" height="14" fill="#1a1410" opacity="0.4"/>
+    <rect x="58" y="75" width="10" height="14" fill="#1a1410" opacity="0.4"/>
+    <rect x="100" y="55" width="10" height="14" fill="#1a1410" opacity="0.4"/>
+    <rect x="120" y="55" width="10" height="14" fill="#1a1410" opacity="0.4"/>
+  </svg>`,
+  activity: `<svg viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="320" height="160" fill="#f0e0c4"/>
+    <circle cx="80" cy="80" r="35" fill="#c8472b" stroke="#1a1410" stroke-width="1.5"/>
+    <path d="M65 65 L95 80 L65 95 Z" fill="#1a1410"/>
+    <circle cx="180" cy="100" r="28" fill="none" stroke="#1a1410" stroke-width="1.5"/>
+    <path d="M165 100 L195 100 M180 85 L180 115" stroke="#1a1410" stroke-width="1.5"/>
+    <path d="M240 50 L270 50 L255 80 Z" fill="#6b7d3a" stroke="#1a1410" stroke-width="1.5"/>
+    <path d="M230 110 Q255 90 280 110" stroke="#1a1410" stroke-width="2" fill="none"/>
+  </svg>`
+};
+
+const AVATAR_COLORS = ['#d9a441', '#c8472b', '#6b7d3a', '#2e7a8a', '#6b3a4a', '#a8341f'];
+
+const SAMPLE_PLANS = [
+  {
+    id: 1, type: 'travel', stamp: 'טיול',
+    place: 'מצדה לזריחה', meta: 'ים המלח · 1.5ש מתל אביב',
+    when: 'שבת 17.5 · יוצאים ב־03:00',
+    title: 'מצדה <em>לזריחה</em> ואז ים המלח',
+    purpose: 'עולים בשביל הסולם לזריחה. אחרי זה ארוחת בוקר באכסניה ושעתיים ציפה בים המלח. יש לי רכב — מחפש 2 אנשים שיתחלקו בדלק.',
+    reasons: ['חברה', 'חלוקת הוצאות', 'תמונות'],
+    host: 'נועה ל.', hostInitials: 'נל', hostColor: 0,
+    size: '2–3 אנשים', attendees: ['יע', 'דמ'],
+    mine: false, joined: false
+  },
+  {
+    id: 2, type: 'local', stamp: 'מקומי',
+    place: 'קפה קפליקס שלמה המלך', meta: 'תל אביב · לב העיר',
+    when: 'מחר ב־10:00',
+    title: 'בוקר רגוע ב<em>קפליקס</em>',
+    purpose: 'מביא ספר ולפטופ לכמה שעות. פתוח לדבר אם מישהו עובד מרחוק או רק רוצה להתעדכן בקפה הכי טוב באזור.',
+    reasons: ['חברה', 'להכיר אנשים'],
+    host: 'יונתן ש.', hostInitials: 'יש', hostColor: 3,
+    size: '1–2 אנשים', attendees: ['רע'],
+    mine: false, joined: false
+  },
+  {
+    id: 3, type: 'activity', stamp: 'פעילות',
+    place: 'בולדר תל אביב, פלורנטין', meta: 'טיפוס מקורה',
+    when: 'יום ד׳ 19:00',
+    title: 'ערב טיפוס, <em>כל הרמות</em>',
+    purpose: 'מתכנן 2 שעות. אני ברמה בינונית (5+ עד 6א), שמח לאבטח מתחילים או לדחוף עם מישהו חזק יותר. נעליים אפשר לשכור במקום.',
+    reasons: ['תרגול', 'חברה'],
+    host: 'מיכל ד.', hostInitials: 'מד', hostColor: 2,
+    size: '2–4 אנשים', attendees: ['אב', 'גנ', 'תס'],
+    mine: false, joined: false
+  },
+  {
+    id: 4, type: 'travel', stamp: 'טיול',
+    place: 'מכתש רמון + עין עבדת', meta: 'הנגב · סופ״ש שלם',
+    when: '23–24.5 · יוצאים שישי בבוקר',
+    title: 'סופ״ש <em>במדבר</em>',
+    purpose: 'יש לי הזמנה לאוהל בדואי במצפה רמון. שביל באמצע המכתש שישי, עין עבדת שבת, חוזרים מוצ״ש. צריך עוד 2 אנשים לחלוקת רכב והאוהל. תביאו שק שינה.',
+    reasons: ['חברה', 'חלוקת הוצאות', 'טיפים מקומיים'],
+    host: 'איתי כ.', hostInitials: 'אכ', hostColor: 4,
+    size: '2 אנשים נוספים', attendees: ['שח', 'נמ'],
+    mine: false, joined: false
+  },
+  {
+    id: 5, type: 'activity', stamp: 'פעילות',
+    place: 'פארק הירקון', meta: 'גן יהושע',
+    when: 'שבת 09:00',
+    title: 'ריצה קלה <em>5 ק״מ</em> + קפה',
+    purpose: 'קצב נינוח (6:30/ק״מ), בלי לחץ. הקפה אחרי זה זה כל הסיפור. גשם? יוצאים בכל זאת. נפגשים בכניסה ליד גן הסלע.',
+    reasons: ['תרגול', 'להכיר אנשים'],
+    host: 'תמר ב.', hostInitials: 'תב', hostColor: 1,
+    size: '3–6 אנשים', attendees: ['נל', 'יע', 'יש', 'אב'],
+    mine: false, joined: false
+  },
+  {
+    id: 6, type: 'local', stamp: 'מקומי',
+    place: 'שוק הכרמל', meta: 'תל אביב · בוקר שישי',
+    when: 'שישי 09:00',
+    title: 'סבב בשוק, <em>אז בורקס</em>',
+    purpose: 'הולך כל שישי — מכיר את הדוכנים הטובים. שמח לקחת מישהו חדש בשכונה ולהראות איפה הקפה הכי טוב. מסיימים בבורקסים אצל פרץ.',
+    reasons: ['טיפים מקומיים', 'חברה'],
+    host: 'אבי ר.', hostInitials: 'אר', hostColor: 5,
+    size: '1–3 אנשים', attendees: [],
+    mine: false, joined: false
+  },
+  {
+    id: 7, type: 'activity', stamp: 'פעילות',
+    place: 'סינמטק תל אביב', meta: 'סרט + פאב',
+    when: 'יום ה׳ 20:00',
+    title: 'סרט <em>ובירה אחרי</em>',
+    purpose: 'הולך לסרט צרפתי בסינמטק — מחפש מישהו שבאמת רוצה לדבר עליו אחרי בפאב. כתוביות באנגלית, אז גם עולים חדשים בסדר.',
+    reasons: ['חברה', 'להכיר אנשים', 'תרגול'],
+    host: 'הילה מ.', hostInitials: 'המ', hostColor: 3,
+    size: '1–2 אנשים', attendees: ['אכ'],
+    mine: false, joined: false
+  },
+  {
+    id: 8, type: 'travel', stamp: 'טיול',
+    place: 'נחל יהודיה, רמת הגולן', meta: 'מסלול מים',
+    when: 'שבת 17.5 · יום שלם',
+    title: 'יהודיה — <em>קופצים למים</em>',
+    purpose: 'מסלול ארוך עם קפיצות לבריכות. מתאים למי שיודע לשחות. יוצאים מתל אביב 06:00, חוזרים בערב. צריך 2 שיתחלקו בדלק. תביאו שיכפצים וכובע.',
+    reasons: ['חלוקת הוצאות', 'חברה'],
+    host: 'דניאל פ.', hostInitials: 'דפ', hostColor: 2,
+    size: '1–2 נוספים', attendees: ['יש', 'רע'],
+    mine: false, joined: false
+  },
+  {
+    id: 9, type: 'local', stamp: 'מקומי',
+    place: 'נמל תל אביב, מגדלור', meta: 'בוקר שבת',
+    when: 'שבת 08:00',
+    title: 'הליכה בנמל <em>+ ארוחת בוקר</em>',
+    purpose: 'מתחילים בנמל, הולכים עד הירקון וחוזרים. ארוחת בוקר במגדלור (יש להם פוקצ׳ה רצינית). שעתיים-שלוש סך הכל.',
+    reasons: ['חברה', 'להכיר אנשים'],
+    host: 'יעל ק.', hostInitials: 'יק', hostColor: 0,
+    size: '2–4 אנשים', attendees: ['תב', 'נל'],
+    mine: false, joined: false
+  }
+];
+
+let plans = [...SAMPLE_PLANS];
+let currentView = 'discover';
+let currentTypeFilter = 'all';
+let currentReasonFilter = 'all';
+let pendingMeetId = null;
+
+const feed = document.getElementById('feed');
+
+function renderFeed() {
+  let visible = plans;
+  if (currentView === 'mine') visible = visible.filter(p => p.mine);
+  if (currentView === 'joined') visible = visible.filter(p => p.joined);
+  if (currentTypeFilter !== 'all') visible = visible.filter(p => p.type === currentTypeFilter);
+  if (currentReasonFilter !== 'all') {
+    const reasonMap = {
+      'company': 'חברה', 'local-tips': 'טיפים מקומיים',
+      'split-cost': 'חלוקת הוצאות', 'practice': 'תרגול'
+    };
+    visible = visible.filter(p => p.reasons.includes(reasonMap[currentReasonFilter]));
+  }
+
+  if (visible.length === 0) {
+    feed.innerHTML = `<div class="empty">
+      <h3>אין כאן עדיין כלום.</h3>
+      <p>${currentView === 'mine' ? 'שתף את התוכנית הראשונה שלך למעלה.' :
+          currentView === 'joined' ? 'תוכניות שתצטרף אליהן יופיעו כאן.' :
+          'נסה פילטר אחר, או היה הראשון לפרסם.'}</p>
+    </div>`;
+    return;
+  }
+
+  feed.innerHTML = visible.map((p, idx) => {
+    const tilt = idx % 5 === 1 ? 'tilted-1' : idx % 5 === 3 ? 'tilted-2' : '';
+    const stampClass = p.type === 'travel' ? 'stamp-travel' : p.type === 'local' ? 'stamp-local' : 'stamp-activity';
+    const reasonsHtml = p.reasons.map(r => `<span class="reason-chip">${r}</span>`).join('');
+    const attendeesHtml = p.attendees.length > 0 ? `
+      <div class="attendees">
+        <div class="attendee-stack">
+          ${p.attendees.slice(0,4).map((a, i) => `<div class="avatar" style="background:${AVATAR_COLORS[(i+1) % AVATAR_COLORS.length]}">${a}</div>`).join('')}
+        </div>
+        <span class="attendee-count">${p.attendees.length} מצטרפים</span>
+      </div>` : '';
+
+    return `
+      <article class="card ${tilt}" data-id="${p.id}">
+        <span class="card-stamp ${stampClass}">${p.stamp}</span>
+        <div class="card-image">${ILLUS[p.type]}</div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span>${p.place}</span><span class="dot"></span><span>${p.meta}</span>
+          </div>
+          <h3>${p.title}</h3>
+          <p class="card-purpose">${p.purpose}</p>
+          <div class="reasons-row">${reasonsHtml}</div>
+          <div class="card-host">
+            <div class="avatar" style="background:${AVATAR_COLORS[p.hostColor]}">${p.hostInitials}</div>
+            <div class="host-info">
+              <div class="host-name">${p.host}${p.mine ? ' <span style="color:var(--accent);font-style:italic;font-weight:400;">(אתה)</span>' : ''}</div>
+              <div class="host-when">${p.when} · ${p.size}</div>
+            </div>
+          </div>
+          <div class="card-footer">
+            ${p.mine ?
+              `<button class="btn-meet" disabled style="background:var(--paper-deep);color:var(--ink-faint);cursor:default;border-style:dashed;">הפוסט שלך</button>` :
+              p.joined ?
+              `<button class="btn-meet joined">✓ אתה בפנים</button>` :
+              `<button class="btn-meet" data-meet="${p.id}">→ אני בא</button>`
+            }
+            <button class="btn-icon" title="שמור">♡</button>
+          </div>
+          ${attendeesHtml}
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  document.querySelectorAll('[data-meet]').forEach(btn => {
+    btn.addEventListener('click', () => openMeetModal(parseInt(btn.dataset.meet)));
+  });
+}
+
+document.querySelectorAll('#nav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentView = btn.dataset.view;
+    renderFeed();
+  });
+});
+
+document.querySelectorAll('#filters .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    if (chip.dataset.filter) {
+      document.querySelectorAll('#filters .chip[data-filter]').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentTypeFilter = chip.dataset.filter;
+    } else if (chip.dataset.reason) {
+      document.querySelectorAll('#filters .chip[data-reason]').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentReasonFilter = chip.dataset.reason;
+    }
+    renderFeed();
+  });
+});
+
+const createModal = document.getElementById('create-modal');
+document.getElementById('open-create').addEventListener('click', () => {
+  createModal.classList.add('open');
+});
+document.querySelectorAll('[data-close]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.target.closest('.modal-backdrop').classList.remove('open');
+  });
+});
+document.querySelectorAll('.modal-backdrop').forEach(b => {
+  b.addEventListener('click', e => {
+    if (e.target === b) b.classList.remove('open');
+  });
+});
+
+document.getElementById('submit-create').addEventListener('click', () => {
+  const place = document.getElementById('f-place').value.trim();
+  const type = document.querySelector('input[name="type"]:checked').value;
+  const when = document.getElementById('f-when').value.trim() || 'בקרוב';
+  const size = document.getElementById('f-size').value.trim() || 'גמיש';
+  const purpose = document.getElementById('f-purpose').value.trim();
+  const reasons = Array.from(document.querySelectorAll('#f-reasons input:checked')).map(i => i.value);
+
+  if (!place) { document.getElementById('f-place').focus(); return; }
+  if (!purpose) { document.getElementById('f-purpose').focus(); return; }
+
+  const stampMap = { travel: 'טיול', local: 'מקומי', activity: 'פעילות' };
+  const newPlan = {
+    id: Date.now(), type, stamp: stampMap[type],
+    place, meta: 'התוכנית שלך',
+    when,
+    title: place.length > 28 ? `הולך ל<em>${place.slice(0,26)}…</em>` : `הולך ל<em>${place}</em>`,
+    purpose,
+    reasons: reasons.length ? reasons : ['חברה'],
+    host: 'אתה', hostInitials: 'את', hostColor: 0,
+    size, attendees: [],
+    mine: true, joined: false
+  };
+  plans = [newPlan, ...plans];
+  createModal.classList.remove('open');
+
+  document.getElementById('f-place').value = '';
+  document.getElementById('f-when').value = '';
+  document.getElementById('f-purpose').value = '';
+  document.querySelectorAll('#f-reasons input').forEach(i => i.checked = false);
+
+  showToast(`פורסם. <em>אנשים יכולים להצטרף.</em>`);
+  renderFeed();
+});
+
+const meetModal = document.getElementById('meet-modal');
+const meetBody = document.getElementById('meet-body');
+const meetTitle = document.getElementById('meet-title');
+
+function openMeetModal(planId) {
+  const plan = plans.find(p => p.id === planId);
+  if (!plan) return;
+  pendingMeetId = planId;
+
+  meetTitle.innerHTML = `להצטרף ל<em>${plan.place}</em>?`;
+  meetBody.innerHTML = `
+    <div class="meet-prompt"><p>${plan.purpose}</p></div>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:18px;font-size:14px;color:var(--ink-soft);">
+      <div class="avatar" style="background:${AVATAR_COLORS[plan.hostColor]}">${plan.hostInitials}</div>
+      <div>
+        <div style="font-weight:600;color:var(--ink);">${plan.host}</div>
+        <div style="font-size:12px;color:var(--ink-faint);">${plan.when} · ${plan.size}</div>
+      </div>
+    </div>
+    <div class="form-row">
+      <label>מה אתה מחפש מהמפגש?</label>
+      <div class="pill-options" id="meet-reasons">
+        ${plan.reasons.map((r, i) => `
+          <input type="checkbox" id="mr-${i}" value="${r}" checked>
+          <label for="mr-${i}">${r}</label>
+        `).join('')}
+      </div>
+    </div>
+    <div class="form-row">
+      <label>הודעה ל${plan.host.split(' ')[0]} (לא חובה)</label>
+      <textarea id="meet-note" placeholder="היי! בא לי מאוד להצטרף, אני חדש באזור ו..."></textarea>
+    </div>
+  `;
+  meetModal.classList.add('open');
+}
+
+document.getElementById('confirm-meet').addEventListener('click', () => {
+  const plan = plans.find(p => p.id === pendingMeetId);
+  if (!plan) return;
+  plan.joined = true;
+  plan.attendees = [...plan.attendees, 'את'];
+  meetModal.classList.remove('open');
+  showToast(`בקשה נשלחה ל<em>${plan.host.split(' ')[0]}</em>`);
+  renderFeed();
+});
+
+const toast = document.getElementById('toast');
+let toastTimer;
+function showToast(html) {
+  toast.innerHTML = html;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+renderFeed();
+</script>
+</body>
+</html>

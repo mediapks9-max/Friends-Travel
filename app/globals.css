@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* RTL is set via dir="rtl" on the html element in layout.tsx */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-paper text-ink;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Paper texture — copied directly from your original index.html */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(200, 71, 43, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(217, 164, 65, 0.05) 0%, transparent 40%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Wrap content above the texture */
+  body > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@layer components {
+  /* "Stamp" badge — used for trip type labels */
+  .stamp {
+    @apply inline-block border-2 px-3 py-1 font-serif font-black text-xs tracking-widest uppercase;
+    transform: rotate(-2deg);
+  }
+
+  /* Hand-arranged tilt for cards */
+  .tilt-1 { transform: rotate(-0.4deg); }
+  .tilt-2 { transform: rotate(0.6deg); }
+  .tilt-3 { transform: rotate(-0.2deg); }
+
+  /* Paper card — used everywhere */
+  .paper-card {
+    @apply bg-paper-deep border border-line rounded-sm shadow-card;
+  }
+
+  /* Reason chip — for filter pills and trip cards */
+  .reason-chip {
+    @apply inline-block px-2 py-0.5 text-xs border border-line/40 bg-paper rounded-sm text-ink-soft;
+  }
+}
